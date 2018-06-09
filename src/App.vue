@@ -1,10 +1,13 @@
 <template>
 <div id="app">
   <a-scene background="black">
-    <a-box v-for="n in playableCubes" :color="selectedColor" position="0 2 -10" rotation="0 0 0" scale="2 2 2" visible="false" v-on:click="onClick" playable></a-box>
+    <a-box v-for="n in playableCubes" class="playable" position="0 2 -10" rotation="0 0 0" scale="2 2 2" visible="false" v-on:click="onClick" playable></a-box>
     <a-box v-for="n in backgroundCubes" color="#00afde" :position="getRandomPosition(30, 5, -20)" rotation="0 0 0" scale="2 2 2" background-cube></a-box>
     <a-camera>
-      <a-cursor color="white"></a-cursor>
+        <a-cursor color="white" fuse-timeout="300" raycaster="objects: .playable">
+        <a-animation begin="click" easing="ease-in" attribute="scale" dur="300" fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" dur="300" fill="backwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+      </a-cursor>
     </a-camera>
     </a-scene>
   </div>
