@@ -1,6 +1,4 @@
-# green-cube-vr
-
-> Green Cube VR
+# Green Cube VR
 
 ## Build Setup
 
