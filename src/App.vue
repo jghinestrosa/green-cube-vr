@@ -1,7 +1,11 @@
 <template>
 <div id="app">
   <a-scene background="black">
-    <playable-cube v-for="n in playableCubes"></playable-cube>
+    <a-assets>
+      <audio src="./assets/audio/hit.mp3" ref="hit-sound"></audio>
+      <audio src="./assets/audio/miss.mp3" ref="miss-sound"></audio>
+    </a-assets>
+    <playable-cube v-for="n in playableCubes" v-on:click.native="playSound"></playable-cube>
     <background-cube v-for="n in backgroundCubes"></background-cube>
     <a-camera>
         <a-cursor color="white" fuse-timeout="300" raycaster="objects: .playable">
@@ -35,6 +39,16 @@ export default {
       backgroundCubes: 40,
     };
   },
+  methods: {
+    playSound(event) {
+      let audioElement = this.$refs['miss-sound'];
+      if (event.target.getAttribute('color') === 'green') {
+        audioElement = this.$refs['hit-sound'];
+      }
+      audioElement.currentTime = 0;
+      audioElement.play();
+    }
+  }
 };
 </script>
 
