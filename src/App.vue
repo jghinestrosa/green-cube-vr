@@ -30,8 +30,8 @@ export default {
     };
   },
   methods: {
-    onClick() {
-      console.log('click');
+    onClick(event) {
+      event.target.object3D.visible = false;
     },
     getRandomPosition(limitX, limitY, z) {
       const x = Math.random() * limitX * 2 - limitX;
