@@ -1,8 +1,8 @@
 <template>
 <div id="app">
   <a-scene background="black">
-    <a-box v-for="n in playableCubes" class="playable" position="0 2 -10" rotation="0 0 0" scale="2 2 2" visible="false" v-on:click="onClick" playable></a-box>
-    <a-box v-for="n in backgroundCubes" color="#00afde" :position="getRandomPosition(30, 5, -20)" rotation="0 0 0" scale="2 2 2" background-cube></a-box>
+    <playable-cube v-for="n in playableCubes"></playable-cube>
+    <background-cube v-for="n in backgroundCubes"></background-cube>
     <a-camera>
         <a-cursor color="white" fuse-timeout="300" raycaster="objects: .playable">
         <a-animation begin="click" easing="ease-in" attribute="scale" dur="300" fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
@@ -20,24 +20,20 @@ import moveComponent from './aframe/components/playable';
 import moveSystem from './aframe/systems/playable';
 import backgroundSystem from './aframe/systems/background';
 import backgroundComponent from './aframe/components/background';
+import PlayableCube from './components/PlayableCube';
+import BackgroundCube from './components/BackgroundCube';
 
 export default {
   name: 'App',
+  components: {
+    PlayableCube,
+    BackgroundCube
+  },
   data() {
     return {
       playableCubes: 4,
       backgroundCubes: 40,
     };
-  },
-  methods: {
-    onClick(event) {
-      event.target.object3D.visible = false;
-    },
-    getRandomPosition(limitX, limitY, z) {
-      const x = Math.random() * limitX * 2 - limitX;
-      const y = Math.random() * limitY * 2 - limitY;
-      return `${x} ${y} ${z}`;
-    },
   },
 };
 </script>
